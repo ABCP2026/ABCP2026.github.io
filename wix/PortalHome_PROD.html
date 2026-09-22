@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>ABCP | Employee Portal</title><style>
+    :root{
+      --navy:#173f73;--cyan:#35b8df;--ink:#243443;--muted:#65717d;
+      --bg:#f3f6f8;--card:#fff;--line:#d8e1e7;--soft:#edf2f5;
+      --danger:#9d2b2b;--shadow:0 8px 28px rgba(28,52,73,.08);
+      --radius:16px;--font:Arial,Helvetica,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:var(--font);color:var(--ink);background:var(--bg)}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .topbar{background:linear-gradient(135deg,var(--navy),#245b91);color:#fff;padding:28px 20px 52px}
+    .topbar-inner,.shell{width:calc(100% - 32px);margin:0 auto}
+    .brand-row{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:15px;min-width:0}
+    .brand-logo-box{width:62px;height:62px;display:grid;place-items:center;flex:0 0 auto;overflow:hidden;border-radius:15px;background:#fff;border:1px solid rgba(255,255,255,.55);box-shadow:0 7px 18px rgba(9,38,56,.18)}
+    .brand-logo{width:58px;height:58px;display:block;object-fit:contain;transform:translate(-1px,1px) scale(.96);transform-origin:center}.brand-copy{min-width:0}
+    .eyebrow{font-size:11px;letter-spacing:1.8px;text-transform:uppercase;opacity:.78;margin-bottom:5px}
+    h1{font-size:1.65rem;margin:0 0 4px;line-height:1.2}
+    .subtitle{margin:0;font-size:13px;opacity:.82}
+    .header-side{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex:0 0 auto}.header-actions{display:flex;align-items:center;gap:8px;direction:ltr}.header-btn{appearance:none;border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.11);color:#fff;border-radius:9px;padding:9px 13px;min-height:36px;font-size:12.5px;font-weight:700;cursor:pointer}.header-btn:hover{background:rgba(255,255,255,.19);transform:translateY(-1px)}.header-meta{display:flex;align-items:center;gap:8px;direction:ltr}.system-code{font-size:10px;letter-spacing:.8px;color:rgba(255,255,255,.66)}.env{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid rgba(255,255,255,.35);border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.8px;background:rgba(255,255,255,.09)}
+    .env-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan)}
+    .shell{margin-top:-28px;padding-bottom:42px}
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:18px}
+    .panel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
+    .panel-title{margin:0;font-size:1.15rem;color:var(--navy)}
+    .panel-caption{margin:5px 0 0;font-size:12px;color:var(--muted)}
+    .identity{font-size:12px;color:var(--muted);text-align:left;direction:ltr}
+    .apps-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .app-card{appearance:none;width:100%;text-align:right;border:1px solid var(--line);background:#fff;border-radius:14px;padding:17px;min-height:132px;display:flex;flex-direction:column;gap:10px;transition:.16s ease;position:relative;overflow:hidden;color:inherit}
+    .app-card:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--cyan);opacity:0;transition:.16s ease}
+    .app-card:hover,.app-card:focus-visible{transform:translateY(-2px);border-color:#a8c9da;box-shadow:0 9px 22px rgba(28,52,73,.09);outline:none}
+    .app-card:hover:before,.app-card:focus-visible:before{opacity:1}
+    .app-icon{width:36px;height:36px;border-radius:10px;background:#eaf4f8;color:var(--navy);display:grid;place-items:center;font-weight:800;font-size:14px}
+    .app-name{font-size:15px;font-weight:700;color:var(--navy)}
+    .app-desc{font-size:12px;line-height:1.55;color:var(--muted);flex:1}
+    .app-open{font-size:11px;color:#2c6d8c;font-weight:700}
+    .search-wrap{position:relative;min-width:min(360px,100%)}
+    .search{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 38px 11px 12px;background:#fff;color:var(--ink);outline:none}
+    .search:focus{border-color:#88bcd0;box-shadow:0 0 0 3px rgba(53,184,223,.12)}
+    .search-icon{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+    .tree{border-top:1px solid var(--soft);padding-top:12px}
+    .tree details{border-radius:10px}
+    .tree summary{list-style:none;display:flex;align-items:center;gap:9px;padding:9px 8px;cursor:pointer;border-radius:9px;font-weight:700;font-size:13px;color:#324d64}
+    .tree summary::-webkit-details-marker{display:none}
+    .tree summary:hover{background:var(--soft)}
+    .folder-caret{font-size:10px;transition:transform .15s ease;color:#6c879a}
+    details[open]>.folder-summary .folder-caret{transform:rotate(90deg)}
+    .tree-children{padding-right:18px;border-right:1px dashed #d7dde6;margin-right:10px;padding-top:6px}
+    .folder-icon{font-size:14px;line-height:1}
+    .system-folder>.folder-summary .folder-icon{font-size:16px}
+    .system-folder>.folder-summary{color:var(--navy)}
+    .file-row{display:flex;align-items:center;gap:8px;width:100%;border:0;background:transparent;text-align:right;padding:3px 4px;border-radius:9px;color:var(--ink)}
+    .file-link{display:flex;align-items:center;gap:9px;flex:1;min-width:0;padding:8px 7px;border-radius:8px;color:inherit;text-decoration:none}.file-link:hover,.file-link:focus-visible{background:#f0f6f8;outline:none}.favorite-toggle{width:34px;height:34px;flex:0 0 auto;border:0;border-radius:8px;background:transparent;color:#7890a0;font-size:21px;line-height:1;display:grid;place-items:center}.favorite-toggle:hover,.favorite-toggle:focus-visible{background:#fff4d6;color:#a06b00;outline:none}.favorite-toggle.active{color:#c28a00}
+    
+    .system-row{background:#f5fbfd;border-inline-start:3px solid var(--cyan);padding-inline-start:4px}
+    .system-row:hover{background:#eef9fc}
+    .system-row .file-name{font-weight:700;color:var(--navy)}
+    .system-row .file-icon{background:#dff4fa;color:#0d7899}
+    .system-badge{margin-inline-start:auto;border:1px solid #9bd5e4;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:700;color:#17677f;background:#fff;white-space:nowrap}
+    .file-icon{width:24px;height:24px;border-radius:7px;background:#eef3f6;display:grid;place-items:center;font-size:11px;color:#456278;flex:0 0 auto}
+    .file-name{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .state{display:none;padding:34px 20px;text-align:center;color:var(--muted)}
+    .state.active{display:block}
+    .state strong{display:block;color:var(--navy);font-size:15px;margin-bottom:8px}
+    .retry{margin-top:13px;border:1px solid #9bbfce;background:#fff;color:var(--navy);border-radius:9px;padding:9px 15px;font-weight:700}
+    .empty{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+    .loading-line{height:12px;border-radius:7px;background:linear-gradient(90deg,#eef2f4,#dfe9ee,#eef2f4);background-size:200% 100%;animation:pulse 1.2s linear infinite;margin:9px 0}
+    @keyframes pulse{to{background-position:-200% 0}}
+    .hidden{display:none!important}
+    @media(max-width:960px){.apps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){.topbar{padding:22px 12px 46px}.topbar-inner,.shell{width:calc(100% - 20px)}.brand-logo-box{width:52px;height:52px;border-radius:13px}.brand-logo{width:49px;height:49px}h1{font-size:1.35rem}.subtitle{display:none}.env{font-size:10px;padding:6px 9px}.panel{padding:16px;border-radius:14px}.panel-head{display:block}.identity{margin-top:8px;text-align:right;direction:ltr}.apps-grid{grid-template-columns:1fr}.app-card{min-height:112px}.search-wrap{margin-top:14px;min-width:100%}.tree-children{padding-right:13px;margin-right:8px}}
+
+    :focus-visible{outline:3px solid #35b8df;outline-offset:3px}
+    .file-row{width:100%;text-decoration:none;color:inherit;text-align:right}
+    .file-name{overflow-wrap:anywhere;min-width:0}
+    .tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0}
+    .tools button{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--navy)}
+    .count{color:var(--muted);font-size:12px;margin-inline-start:auto}
+    .notice{padding:12px 16px;border-radius:9px;background:#fff4db;color:#714809;margin:12px 0;font-size:13px}
+    .notice:empty{display:none}
+    .footer{text-align:center;color:var(--muted);font-size:11px;padding:16px}
+    .updated{color:var(--muted);font-size:11px;margin-top:10px}
+    .hidden,[hidden]{display:none!important}
+    .empty{width:100%}
+    .file-icon{font-size:17px;line-height:1.4}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+    .section-kicker{font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#7890a0;margin-bottom:4px}
+    .favorites-section{margin:10px 0 16px;padding:14px;border:1px solid #cfe2eb;background:linear-gradient(180deg,#f8fcfe,#f1f8fb);border-radius:13px}
+    .favorites-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}.favorites-head h3{margin:0;color:var(--navy);font-size:15px}.favorites-count{font-size:11px;color:var(--muted)}
+    .favorites-list{display:grid;gap:8px}.favorite-row{display:flex;align-items:center;gap:8px;min-height:56px;border:1px solid #d6e4eb;background:#fff;border-radius:11px;padding:5px 8px;box-shadow:0 3px 10px rgba(28,52,73,.035)}
+    .favorite-row .favorite-link{display:flex;align-items:center;gap:11px;flex:1;min-width:0;min-height:44px;padding:5px 7px;color:var(--ink);text-decoration:none;border-radius:8px}.favorite-row .favorite-link:hover{background:#f3f8fa}
+    .favorite-row .file-icon{width:32px;height:32px}.favorite-row .file-name{font-size:14px;font-weight:700}.favorite-row.system-favorite .file-name{color:var(--navy)}
+    .readme-modal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px}.readme-backdrop{position:absolute;inset:0;background:rgba(16,36,51,.52)}
+    .readme-card{position:relative;width:min(860px,100%);max-height:min(760px,calc(100vh - 40px));overflow:auto;background:#fff;border-radius:16px;border:1px solid #d8e1e7;box-shadow:0 22px 60px rgba(15,39,57,.24);padding:24px}.readme-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.readme-title-row h2{margin:0;color:var(--navy);font-size:21px}.readme-card>p{color:var(--muted);font-size:13px;line-height:1.7}.readme-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.readme-grid>div{border:1px solid #e1e8ed;background:#f8fafb;border-radius:11px;padding:14px}.readme-grid h3{margin:0 0 6px;color:var(--navy);font-size:14px}.readme-grid p{margin:0;color:#52616d;font-size:12px;line-height:1.65}.readme-close{border:0;background:#eef3f6;color:#536978;border-radius:9px;width:36px;height:36px;font-size:24px;line-height:1}
+    .footer{display:flex;align-items:center;justify-content:center;gap:6px}.footer-separator{opacity:.6}
+
+    @media(max-width:640px){.header-side{gap:7px}.system-code{display:none}.readme-grid{grid-template-columns:1fr}.readme-card{padding:18px}.favorite-row{min-height:52px}}
+</style></head>
+<body>
+<header class="topbar"><div class="topbar-inner brand-row"><div class="brand"><div class="brand-logo-box"><img class="brand-logo" alt="A. BIBI" src="https://static.wixstatic.com/media/36aa97_31f8d42fc5794643a2b8e802e904e8ce~mv2.gif"></div><div class="brand-copy"><div class="eyebrow">A. BIBI · EMPLOYEE PORTAL</div><h1 id="portalTitle"></h1><p class="subtitle" id="portalSubtitle"></p></div></div><div class="header-side"><nav class="header-actions" aria-label="קישורי מערכת"><button id="readmeBtn" class="header-btn" type="button">README</button></nav><div class="header-meta"><span class="system-code">ABCP_PORTAL</span><span class="env"><span class="env-dot"></span><span id="envLabel">PROD</span></span></div></div></div></header>
+<main class="shell">
+<div id="notice" class="notice" role="status" aria-live="polite"></div>
+<section class="panel" id="appsPanel" aria-labelledby="appsTitle"><div class="panel-head"><div><h2 class="panel-title" id="appsTitle"></h2><p class="panel-caption" id="appsCaption"></p></div><div class="identity" id="identity"></div></div><div class="apps-grid" id="appsGrid"></div><div class="state active" id="appsLoading" aria-label="Loading"><div class="loading-line"></div><div class="loading-line" style="width:74%"></div></div></section>
+<section class="panel" id="docsPanel" aria-labelledby="docsTitle"><div class="panel-head"><div><h2 class="panel-title" id="docsTitle"></h2><p class="panel-caption" id="docsCaption"></p></div><div class="search-wrap"><span class="search-icon" aria-hidden="true">&#128269;</span><input class="search" id="docSearch" type="search" autocomplete="off" maxlength="200" disabled></div></div><div class="tools"><button type="button" id="expandBtn" disabled></button><button type="button" id="collapseBtn" disabled></button><button type="button" id="refreshBtn"></button><span id="documentCount" class="count" aria-live="polite"></span></div><section id="favoritesSection" class="favorites-section" hidden aria-labelledby="favoritesTitle"><div class="favorites-head"><div><div class="section-kicker">גישה מהירה</div><h3 id="favoritesTitle">מועדפים</h3></div><span id="favoritesCount" class="favorites-count"></span></div><div id="favoritesList" class="favorites-list"></div></section><div class="tree" id="tree"></div><div class="state active" id="docsLoading" aria-label="Loading"><div class="loading-line"></div><div class="loading-line" style="width:68%"></div><div class="loading-line" style="width:52%"></div></div><div class="updated" id="updatedAt"></div></section>
+<section class="panel state" id="fatalState" role="alert"><strong id="fatalTitle"></strong><span id="fatalText"></span><br><button class="retry" id="retryBtn" type="button"></button></section>
+<footer class="footer"><span>ABCP_PORTAL</span><span class="footer-separator">&middot;</span><span>v0.2.0</span><span class="footer-separator">&middot;</span><span>PROD</span></footer></main><div id="readmeModal" class="readme-modal" hidden><div class="readme-backdrop" data-readme-close="1"></div><section class="readme-card" role="dialog" aria-modal="true" aria-labelledby="readmeTitle"><div class="readme-title-row"><div><div class="section-kicker">ABCP_PORTAL</div><h2 id="readmeTitle">README · פורטל העובדים</h2></div><button id="readmeCloseBtn" class="readme-close" type="button" aria-label="סגירת README">×</button></div><p>הפורטל מרכז מערכות, קישורים, מסמכים ונהלים לפי הרשאת המשתמש המחובר.</p><div class="readme-grid"><div><h3>מועדפים</h3><p>לחיצה על הכוכב ליד מסמך או מערכת מוסיפה אותו לאזור המועדפים שמעל העץ. הבחירה נשמרת בדפדפן עבור החשבון המחובר וממשיכה להופיע לאחר רענון.</p></div><div><h3>הרשאות</h3><p>העץ מסונן בצד השרת. מנהל פורטל מקבל את קבוצות המסמכים המנהליות; קישורי מערכת עדיין כפופים להרשאת היישום הרלוונטי.</p></div><div><h3>חיפוש</h3><p>החיפוש פועל על הפריטים שמותר למשתמש לראות ואינו חושף פריטים מחוץ להרשאה.</p></div><div><h3>מקור מערכת</h3><p>מערכות ABCP וקבצי Drive מוצגים מאותו snapshot מאושר, עם רענון מבוקר.</p></div></div></section></div>
+<script>(function () {
+  'use strict';
+  const T = {
+    portalTitle:'\u05de\u05e2\u05e8\u05db\u05ea \u05de\u05e1\u05de\u05db\u05d9\u05dd \u05d5\u05db\u05dc\u05d9\u05dd',
+    portalSubtitle:'\u05d9\u05d9\u05e9\u05d5\u05de\u05d9\u05dd, \u05de\u05e1\u05de\u05db\u05d9\u05dd \u05d5\u05e0\u05d4\u05dc\u05d9\u05dd \u05d0\u05e8\u05d2\u05d5\u05e0\u05d9\u05d9\u05dd',
+    appsTitle:'\u05de\u05e2\u05e8\u05db\u05d5\u05ea \u05d5\u05db\u05dc\u05d9\u05dd',
+    appsCaption:'\u05d4\u05d9\u05d9\u05e9\u05d5\u05de\u05d9\u05dd \u05d4\u05d6\u05de\u05d9\u05e0\u05d9\u05dd \u05dc\u05da \u05dc\u05e4\u05d9 \u05d4\u05e8\u05e9\u05d0\u05d4.',
+    docsTitle:'\u05de\u05e2\u05e8\u05db\u05d5\u05ea, \u05de\u05e1\u05de\u05db\u05d9\u05dd \u05d5\u05e0\u05d4\u05dc\u05d9\u05dd',
+    docsCaption:'\u05de\u05e2\u05e8\u05db\u05d5\u05ea ABCP \u05d5\u05de\u05e1\u05de\u05db\u05d9 \u05d4\u05de\u05e9\u05e8\u05d3 \u05d1\u05de\u05e7\u05d5\u05dd \u05d0\u05d7\u05d3.',
+    search:'\u05d7\u05d9\u05e4\u05d5\u05e9 \u05de\u05e2\u05e8\u05db\u05ea \u05d0\u05d5 \u05de\u05e1\u05de\u05da...',
+    open:'\u05e4\u05ea\u05d7 \u05de\u05e2\u05e8\u05db\u05ea',
+    noApps:'\u05dc\u05d0 \u05e0\u05de\u05e6\u05d0\u05d5 \u05de\u05e2\u05e8\u05db\u05d5\u05ea \u05d6\u05de\u05d9\u05e0\u05d5\u05ea \u05e2\u05d1\u05d5\u05e8\u05da.',
+    noDocs:'\u05dc\u05d0 \u05e0\u05de\u05e6\u05d0\u05d5 \u05de\u05e1\u05de\u05db\u05d9\u05dd \u05d6\u05de\u05d9\u05e0\u05d9\u05dd \u05e2\u05d1\u05d5\u05e8\u05da \u05d1\u05e9\u05dc\u05d1 \u05d6\u05d4.',
+    noSearch:'\u05dc\u05d0 \u05e0\u05de\u05e6\u05d0\u05d5 \u05de\u05e1\u05de\u05db\u05d9\u05dd \u05d4\u05ea\u05d5\u05d0\u05de\u05d9\u05dd \u05dc\u05d7\u05d9\u05e4\u05d5\u05e9.',
+    fatalTitle:'\u05dc\u05d0 \u05e0\u05d9\u05ea\u05df \u05dc\u05d8\u05e2\u05d5\u05df \u05d0\u05ea \u05e1\u05d1\u05d9\u05d1\u05ea \u05d4\u05e2\u05d1\u05d5\u05d3\u05d4',
+    fatalText:'\u05e0\u05d9\u05ea\u05df \u05dc\u05e0\u05e1\u05d5\u05ea \u05e9\u05d5\u05d1.',
+    retry:'\u05e0\u05e1\u05d4 \u05e9\u05d5\u05d1'
+  };
+
+    function safeSlug(v) {
+    if (typeof v !== 'string') return '';
+    const s = v.trim().toLowerCase();
+    return /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/.test(s) ? s : '';
+  }
+function safeId(v) { return typeof v === 'string' && /^[A-Za-z0-9_-]{10,200}$/.test(v) ? v : ''; }
+function safeSystemUrl(url) {
+    if (typeof url !== 'string' || url.length > 512 || /[\s\\\x00-\x1f\x7f]/.test(url)) return '';
+    const match = url.match(/^https:\/\/www\.corrosion\.co\.il\/apps\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)$/);
+    return match && safeSlug(match[1]) ? url : '';
+  }
+function safeDocumentUrl(url, id) {
+    if (!safeId(id) || typeof url !== 'string' || url.length > 4096 || /[\s\\\x00-\x1f\x7f]/.test(url)) return '';
+    // Exact hosts and known resource paths, not a generic *.google.com allowlist.
+    let m = url.match(/^https:\/\/docs\.google\.com\/(?:document|spreadsheets|presentation|drawings|forms)\/d\/([A-Za-z0-9_-]+)(?:\/(?:edit|view|preview|viewform))?(?:\?[^#]*)?(?:#.*)?$/);
+    if (!m) m = url.match(/^https:\/\/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)(?:\/(?:edit|view|preview|viewform))?(?:\?[^#]*)?(?:#.*)?$/);
+    if (m) return m[1] === id ? url : '';
+    let query = '', key = '';
+    if (/^https:\/\/drive\.google\.com\/open\?/.test(url)) { query = url.split('?')[1].split('#')[0]; key = 'id'; }
+    if (/^https:\/\/www\.google\.com\/maps\/d\/(?:edit|viewer)\?/.test(url)) { query = url.split('?')[1].split('#')[0]; key = 'mid'; }
+    if (!key) return '';
+    // Reject encoded parameter names so duplicate id/mid keys cannot hide behind decoding.
+    if (query.split('&').some(p => /[%+]/.test(p.split('=')[0]))) return '';
+    const matches = query.split('&').filter(p => p.split('=')[0] === key).map(p => p.slice(p.indexOf('=') + 1));
+    return matches.length === 1 && matches[0] === id ? url : '';
+  }
+  const EXPECTED_ENVIRONMENT = 'PROD';
+  const PARENT_ORIGINS = Object.freeze([
+    'https://www.corrosion.co.il',
+    'https://assafbibi.wixsite.com',
+    'https://assafbibi-website-7.editor.wix.com'
+  ]);
+  const PARENT_ORIGIN = (() => {
+    try {
+      const origin = new URL(document.referrer).origin;
+      return PARENT_ORIGINS.includes(origin) ? origin : '';
+    } catch (_) { return ''; }
+  })();
+  const LEASE_MS = 300000;
+  const $ = id => document.getElementById(id);
+  const channel = Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b => b.toString(16).padStart(2, '0')).join('');
+  let seq = 0, synced = false, handshakeTimer, leaseTimer, request = 0, searching = false, expandedBeforeSearch = [];
+  const state = { bootstrap: null, query: '', actorKey: '', favoriteIds: new Set(), items: new Map() };
+  const L = {
+    expand: '\u05e4\u05ea\u05d9\u05d7\u05ea \u05d4\u05db\u05d5\u05dc', collapse: '\u05e1\u05d2\u05d9\u05e8\u05ea \u05d4\u05db\u05d5\u05dc', refresh: '\u05e8\u05e2\u05e0\u05d5\u05df',
+    documents: '\u05de\u05e1\u05de\u05db\u05d9\u05dd', unavailable: '\u05d8\u05e2\u05d9\u05e0\u05ea \u05d4\u05de\u05e1\u05de\u05db\u05d9\u05dd \u05d0\u05d9\u05e0\u05d4 \u05d6\u05de\u05d9\u05e0\u05d4 \u05db\u05e8\u05d2\u05e2.',
+    denied: '\u05d0\u05d9\u05df \u05d4\u05e8\u05e9\u05d0\u05d4 \u05dc\u05de\u05e2\u05e8\u05db\u05ea \u05d6\u05d5. \u05d9\u05e9 \u05dc\u05d4\u05ea\u05d7\u05d1\u05e8 \u05d1\u05d7\u05e9\u05d1\u05d5\u05df \u05d4\u05e2\u05d1\u05d5\u05d3\u05d4.',
+    disconnected: '\u05d4\u05e4\u05d5\u05e8\u05d8\u05dc \u05d8\u05e8\u05dd \u05d7\u05d5\u05d1\u05e8 \u05dc\u05de\u05e2\u05e8\u05db\u05ea.',
+    expired: '\u05dc\u05d4\u05de\u05e9\u05da \u05e2\u05d1\u05d5\u05d3\u05d4 \u05d9\u05e9 \u05dc\u05e8\u05e2\u05e0\u05df \u05d0\u05ea \u05d4\u05ea\u05e6\u05d5\u05d2\u05d4.',
+    snapshot: '\u05e2\u05d5\u05d3\u05db\u05df', newTab: '\u05e0\u05e4\u05ea\u05d7 \u05d1\u05dc\u05e9\u05d5\u05e0\u05d9\u05ea \u05d7\u05d3\u05e9\u05d4', favoriteAdd: '\u05d4\u05d5\u05e1\u05e3 \u05dc\u05de\u05d5\u05e2\u05d3\u05e4\u05d9\u05dd', favoriteRemove: '\u05d4\u05e1\u05e8 \u05de\u05d4\u05de\u05d5\u05e2\u05d3\u05e4\u05d9\u05dd', favorites: '\u05de\u05d5\u05e2\u05d3\u05e4\u05d9\u05dd'
+  };
+  const SYSTEM_ICONS = Object.freeze({ signature:'✉️', expenses:'🧾', projects:'📊', reports:'📝', app:'🔗' });
+  function initStaticText() {
+    ['portalTitle','portalSubtitle','appsTitle','appsCaption','docsTitle','docsCaption','fatalTitle','fatalText'].forEach(id => $(id).textContent = T[id]);
+    $('docSearch').placeholder = T.search; $('docSearch').setAttribute('aria-label', T.search);
+    $('retryBtn').textContent = T.retry; $('refreshBtn').textContent = L.refresh;
+    $('expandBtn').textContent = L.expand; $('collapseBtn').textContent = L.collapse;
+  }
+  function send(type, extra) { if (PARENT_ORIGIN && window.parent !== window) window.parent.postMessage(Object.assign({ v:1, type, channel, requestId:'UI-' + ++request }, extra || {}), PARENT_ORIGIN); }
+  function favoriteStorageKey() { return state.actorKey ? 'abcp.portal.favorites.v1.' + EXPECTED_ENVIRONMENT + '.' + encodeURIComponent(state.actorKey) : ''; }
+  function loadFavorites() {
+    state.favoriteIds = new Set();
+    const key=favoriteStorageKey(); if(!key) return;
+    try {
+      const raw=JSON.parse(localStorage.getItem(key) || '[]');
+      if(Array.isArray(raw)) raw.filter(id=>typeof id==='string' && safeId(id)).slice(0,100).forEach(id=>state.favoriteIds.add(id));
+    } catch (_) {}
+  }
+  function saveFavorites() {
+    const key=favoriteStorageKey(); if(!key) return;
+    try { localStorage.setItem(key, JSON.stringify(Array.from(state.favoriteIds).slice(0,100))); } catch (_) {}
+  }
+  function syncFavoriteButtons() {
+    document.querySelectorAll('[data-favorite-id]').forEach(button=>{
+      const active=state.favoriteIds.has(button.dataset.favoriteId);
+      button.classList.toggle('active',active); button.textContent=active?'★':'☆';
+      button.setAttribute('aria-label',active?L.favoriteRemove:L.favoriteAdd); button.setAttribute('aria-pressed',active?'true':'false');
+    });
+  }
+  function toggleFavorite(id) {
+    if(!safeId(id) || !state.items.has(id)) return;
+    if(state.favoriteIds.has(id)) state.favoriteIds.delete(id); else if(state.favoriteIds.size<100) state.favoriteIds.add(id);
+    saveFavorites(); renderFavorites(); syncFavoriteButtons();
+  }
+  function renderFavorites() {
+    const section=$('favoritesSection'), list=$('favoritesList'); list.replaceChildren();
+    const visible=Array.from(state.favoriteIds).map(id=>state.items.get(id)).filter(Boolean);
+    section.hidden=!visible.length; $('favoritesCount').textContent=visible.length ? visible.length + ' ' + L.favorites : '';
+    for(const item of visible) {
+      const row=document.createElement('div'); row.className='favorite-row' + (item.system?' system-favorite':'');
+      const link=document.createElement('a'); link.className='favorite-link'; link.href=item.url; link.target='_blank'; link.rel='noopener noreferrer';
+      const icon=document.createElement('span'); icon.className='file-icon'; icon.setAttribute('aria-hidden','true'); icon.textContent=item.icon;
+      const name=document.createElement('span'); name.className='file-name'; name.textContent=item.name; link.append(icon,name);
+      const star=document.createElement('button'); star.type='button'; star.className='favorite-toggle active'; star.dataset.favoriteId=item.id; star.textContent='★'; star.setAttribute('aria-label',L.favoriteRemove); star.addEventListener('click',()=>toggleFavorite(item.id));
+      row.append(link,star); list.appendChild(row);
+    }
+  }
+  function startHandshake() {
+    clearInterval(handshakeTimer); let attempts = 0; synced = false; showLoading();
+    const tick = () => { if (synced) { clearInterval(handshakeTimer); return; } if (++attempts > 20) { clearInterval(handshakeTimer); showFatal('NOT_CONNECTED'); return; } send('READY'); };
+    tick(); handshakeTimer = setInterval(tick, 500);
+  }
+  function empty(target, message) { const div = document.createElement('div'); div.className = 'empty'; div.textContent = message; target.appendChild(div); }
+  function validSlug(s) { return typeof s === 'string' && /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/.test(s); }
+  function renderApps(apps) {
+    $('appsLoading').classList.remove('active'); const grid = $('appsGrid'); grid.replaceChildren();
+    const list = Array.isArray(apps) ? apps.filter(a => a && validSlug(a.routeSlug)) : [];
+    if (!list.length) { empty(grid, T.noApps); return; }
+    for (const app of list) {
+      const btn = document.createElement('button'); btn.className = 'app-card'; btn.type = 'button'; btn.dataset.route = app.routeSlug;
+      const icon = document.createElement('div'); icon.className='app-icon'; icon.setAttribute('aria-hidden','true');
+      icon.textContent = SYSTEM_ICONS[app.iconKey] || SYSTEM_ICONS.app;
+      const name = document.createElement('div'); name.className='app-name'; name.textContent=app.nameHe || app.nameEn || '';
+      const desc = document.createElement('div'); desc.className='app-desc'; desc.textContent=app.descriptionHe || app.descriptionEn || '';
+      const action = document.createElement('div'); action.className='app-open'; action.textContent=T.open + ' \u2190';
+      btn.append(icon,name,desc,action); btn.addEventListener('click', () => send('NAVIGATE', { routeSlug:app.routeSlug })); grid.appendChild(btn);
+    }
+  }
+  function buildNode(node, isRoot, depth, budget) {
+    if (!node || typeof node !== 'object' || depth > 64 || ++budget.count > 10000) throw new Error('BAD_TREE');
+    if (node.type === 'file') {
+      const system = node.kind === 'system' || node.mimeType === 'application/vnd.google-apps.drive-sdk';
+      const url = system ? (safeSystemUrl(node.url) || safeDocumentUrl(node.url, node.id)) : safeDocumentUrl(node.url, node.id); if (!url) return null;
+      if (node.kind !== undefined && node.kind !== 'system') throw new Error('BAD_TREE');
+      const displayName = system ? stripSystemIcons(node.displayName || node.name) : (node.displayName || node.name || '');
+      const row = document.createElement('div'); row.className=system ? 'file-row system-row' : 'file-row'; row.dataset.search=normalize(displayName); row.dataset.itemId=node.id;
+      const link=document.createElement('a'); link.className='file-link'; link.href=url; link.target='_blank'; link.rel='noopener noreferrer';
+      const icon = document.createElement('span'); icon.className='file-icon'; icon.setAttribute('aria-hidden','true'); icon.textContent=system ? (SYSTEM_ICONS[node.iconKey] || SYSTEM_ICONS.app) : String(node.icon || '\ud83d\udcc4').slice(0,12);
+      const name = document.createElement('span'); name.className='file-name'; name.textContent=displayName;
+      link.setAttribute('aria-label', String(displayName) + (system ? ' - מערכת' : '') + ' - ' + L.newTab);
+      link.append(icon,name);
+      if (system) { const badge=document.createElement('span'); badge.className='system-badge'; badge.textContent='מערכת'; link.appendChild(badge); }
+      const star=document.createElement('button'); star.type='button'; star.className='favorite-toggle'; star.dataset.favoriteId=node.id; star.setAttribute('aria-pressed','false'); star.addEventListener('click',()=>toggleFavorite(node.id));
+      row.append(link,star);
+      state.items.set(node.id,{id:node.id,url,name:displayName,icon:icon.textContent,system});
+      return row;
+    }
+    if (node.type === 'root') {
+      if (!Array.isArray(node.children)) throw new Error('BAD_TREE');
+      const fragment=document.createDocumentFragment();
+      for (const ch of node.children) { const item=buildNode(ch,false,depth+1,budget); if(item) fragment.appendChild(item); }
+      return fragment;
+    }
+    if (node.type !== 'folder' || !Array.isArray(node.children)) throw new Error('BAD_TREE');
+    const details = document.createElement('details'); details.open=!!isRoot || node.defaultOpen===true || node.systemFolder===true; details.dataset.search=normalize(node.name);
+    if(node.systemFolder===true) details.classList.add('system-folder');
+    const summary=document.createElement('summary'); summary.className='folder-summary';
+    const caret=document.createElement('span'); caret.className='folder-caret'; caret.textContent='\u25b6'; caret.setAttribute('aria-hidden','true');
+    const icon=document.createElement('span'); icon.className='folder-icon'; icon.textContent=node.systemFolder===true ? '\u2b50' : '\ud83d\udcc2'; icon.setAttribute('aria-hidden','true');
+    const label=document.createElement('span'); label.textContent=node.systemFolder===true ? stripLeadingStar(node.name) : (node.name || ''); summary.append(caret,icon,label); details.appendChild(summary);
+    const children=document.createElement('div'); children.className='tree-children';
+    for (const ch of node.children) { const item=buildNode(ch,false,depth+1,budget); if(item) children.appendChild(item); }
+    if (!children.children.length) return null; details.appendChild(children); return details;
+  }
+  function stripSystemIcons(value) {
+    let result=String(value || '').trim(), changed=true;
+    const prefixes=['🚀','✉️','🧾','📊','📝','🔗','⚙️'];
+    while(changed && result){changed=false;for(const icon of prefixes){if(result.startsWith(icon)){result=result.slice(icon.length).trimStart();changed=true;break;}}}
+    return result;
+  }
+  function stripLeadingStar(value) { return String(value || '').trim().replace(/^\u2b50\ufe0f?\s*/, ''); }
+  function normalize(value) { return String(value || '').normalize('NFKC').trim().toLowerCase(); }
+  function applySearch() {
+    const root=$('tree'), q=normalize(state.query); let count=0;
+    if (q && !searching) { expandedBeforeSearch=Array.from(root.querySelectorAll('details')).map(d=>[d,d.open]); searching=true; }
+    function visit(el) {
+      // The recovered legacy renderer searches document names (clean and original), not folder names.
+      // The Portal DTO deliberately omits originalName/roles, so its safe visible name is the search source.
+      if (el.classList.contains('file-row')) { const show=!q || el.dataset.search.includes(q); el.hidden=!show; if(show) count++; return show; }
+      if (el.tagName!=='DETAILS') return false;
+      let any=false;
+      for (const ch of el.querySelector(':scope > .tree-children').children) if(visit(ch)) any=true;
+      el.hidden=!any; if(q && any) el.open=true; return any;
+    }
+    root.querySelectorAll(':scope > details').forEach(visit);
+    if (!q && searching) { expandedBeforeSearch.forEach(([d,open])=>d.open=open); expandedBeforeSearch=[]; searching=false; }
+    const old=root.querySelector('[data-empty]'); if(old) old.remove();
+    if(q && !count) { const div=document.createElement('div'); div.className='empty'; div.dataset.empty='1'; div.textContent=T.noSearch; root.appendChild(div); }
+    $('documentCount').textContent=count + ' ' + L.documents;
+  }
+  function renderTree(tree, documentState) {
+    $('tree').replaceChildren(); $('docsLoading').classList.remove('active'); searching=false; expandedBeforeSearch=[]; state.items=new Map();
+    $('docSearch').disabled=true; $('expandBtn').disabled=true; $('collapseBtn').disabled=true; $('updatedAt').textContent=''; $('documentCount').textContent='';
+    if(!documentState || documentState.status!=='READY') { empty($('tree'),L.unavailable); $('documentCount').textContent=''; return; }
+    try { const node=tree ? buildNode(tree,true,0,{count:0}) : null; if(node) $('tree').appendChild(node); else empty($('tree'),T.noDocs); }
+    catch (_) { $('tree').replaceChildren(); empty($('tree'),L.unavailable); return; }
+    $('docSearch').disabled=false; $('expandBtn').disabled=false; $('collapseBtn').disabled=false;
+    if(documentState.updatedAt && Number.isFinite(Date.parse(documentState.updatedAt))) $('updatedAt').textContent=L.snapshot + ': ' + new Date(documentState.updatedAt).toLocaleString('he-IL', { timeZone:'Asia/Jerusalem' });
+    applySearch(); renderFavorites(); syncFavoriteButtons();
+  }
+  function renderBootstrap(payload) {
+    if(!payload || payload.environment!==EXPECTED_ENVIRONMENT || payload.schemaVersion!==1 || !Array.isArray(payload.applications)) { showFatal('PORTAL_BAD_RESPONSE'); return; }
+    state.bootstrap=payload; const actor=payload.actor || {}; state.actorKey=String(actor.email || '').trim().toLowerCase(); loadFavorites();
+    $('identity').textContent=String(actor.displayName || '') + (actor.email ? ' | ' + actor.email : '');
+    renderApps(payload.applications); renderTree(payload.documentTree,payload.documentState);
+    const unifiedTree=!!(payload.documentTree && Array.isArray(payload.documentTree.children) && payload.documentTree.children.some(node=>node && node.systemFolder===true));
+    $('fatalState').classList.remove('active'); $('appsPanel').classList.toggle('hidden',unifiedTree); $('docsPanel').classList.remove('hidden');
+    $('refreshBtn').disabled=false;
+    clearTimeout(leaseTimer); leaseTimer=setTimeout(()=>{ showFatal('PORTAL_SESSION_REFRESH_REQUIRED'); send('EXPIRE'); },LEASE_MS);
+  }
+  function clearSensitive() {
+    clearTimeout(leaseTimer); state.bootstrap=null; state.query=''; state.actorKey=''; state.favoriteIds=new Set(); state.items=new Map(); searching=false; expandedBeforeSearch=[];
+    $('identity').textContent=''; $('appsGrid').replaceChildren(); $('tree').replaceChildren(); $('favoritesList').replaceChildren(); $('favoritesSection').hidden=true; $('favoritesCount').textContent=''; $('documentCount').textContent=''; $('updatedAt').textContent=''; $('docSearch').value='';
+    $('docSearch').disabled=true; $('expandBtn').disabled=true; $('collapseBtn').disabled=true;
+  }
+  function showLoading() {
+    clearSensitive(); $('notice').textContent=''; $('fatalState').classList.remove('active'); $('appsPanel').classList.remove('hidden'); $('docsPanel').classList.remove('hidden');
+    $('appsLoading').classList.add('active'); $('docsLoading').classList.add('active'); $('refreshBtn').disabled=true;
+  }
+  function publicMessage(code) {
+    if(code==='PORTAL_ACCESS_DENIED') return L.denied;
+    if(code==='PORTAL_SESSION_REFRESH_REQUIRED') return L.expired;
+    if(['NOT_CONNECTED','PORTAL_DEV_BINDING_PENDING','PORTAL_PROD_BINDING_INVALID','PORTAL_SECRET_UNAVAILABLE'].includes(code)) return L.disconnected;
+    return T.fatalText;
+  }
+  function showFatal(code) { clearSensitive(); $('appsPanel').classList.add('hidden'); $('docsPanel').classList.add('hidden'); $('fatalState').classList.add('active'); $('fatalText').textContent=publicMessage(code); }
+  window.addEventListener('message', event => {
+    if(event.source!==window.parent || event.origin!==PARENT_ORIGIN) return;
+    const msg=event.data;
+    if(!msg || typeof msg!=='object' || Array.isArray(msg) || msg.v!==1 || msg.channel!==channel || !Number.isSafeInteger(msg.seq) || msg.seq<=seq) return;
+    if(!['SYNC','RESET','INIT','ERROR','NOTICE'].includes(msg.type)) return;
+    seq=msg.seq;
+    if(msg.type==='SYNC'){const firstSync=!synced;synced=true;clearInterval(handshakeTimer);if(firstSync)send('RETRY');}
+    if(msg.type==='RESET') showLoading();
+    if(msg.type==='INIT') renderBootstrap(msg.payload);
+    if(msg.type==='ERROR') showFatal(msg.code);
+    if(msg.type==='NOTICE') $('notice').textContent=publicMessage(msg.code);
+  });
+  $('docSearch').addEventListener('input',event=>{state.query=event.target.value;applySearch();});
+  $('expandBtn').addEventListener('click',()=>{$('tree').querySelectorAll('details').forEach(d=>d.open=true);});
+  $('collapseBtn').addEventListener('click',()=>{$('tree').querySelectorAll('details').forEach(d=>d.open=false);});
+  function retry(){showLoading(); if(synced) send('RETRY'); else startHandshake();}
+  $('retryBtn').addEventListener('click',retry); $('refreshBtn').addEventListener('click',retry);
+  function openReadme(){ $('readmeModal').hidden=false; $('readmeCloseBtn').focus(); }
+  function closeReadme(){ $('readmeModal').hidden=true; $('readmeBtn').focus(); }
+  $('readmeBtn').addEventListener('click',openReadme); $('readmeCloseBtn').addEventListener('click',closeReadme);
+  $('readmeModal').addEventListener('click',e=>{if(e.target && e.target.dataset.readmeClose==='1') closeReadme();});
+  window.addEventListener('keydown',e=>{if(e.key==='Escape' && !$('readmeModal').hidden) closeReadme();});
+  window.addEventListener('pagehide',()=>{clearInterval(handshakeTimer);clearSensitive();});
+  initStaticText();
+  startHandshake();
+})();
+</script>
+</body></html>
